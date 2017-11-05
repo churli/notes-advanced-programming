@@ -4,8 +4,12 @@ if [[ "$1" == "" ]]; then
     echo -e "FATAL: You need to provide a filename as first argument!\nExiting..."
     exit 1
 fi
-
 FILENAME=$1
+if [[ "$2" != "" ]]; then
+    KINDLEFILENAME=$2
+else
+    KINDLEFILENAME=""
+fi
 
 OS=$(uname)
 if [[ "$OS" == "Linux" ]]; then

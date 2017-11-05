@@ -1,4 +1,73 @@
 \section{C++ in a nutshell}
-TODO
+This is just a collection of sparse hints and pointers to important topics. For a complete reference and introduction to C++ and its features, the lecturer suggests referring to the book \emph{Absolute C++}, from Walter Savitch.
 
+\subsection{Data types}
+C++ data types are \emph{bool}, \emph{int}, \emph{char}, \emph{float}, \emph{double} and their unsigned variants, plus \emph{string}.
+
+Explicit type casts can be performed either in \emph{C style}, e.g. \code{int a = (int)f + b;}, or better in \emph{C++ style}, e.g. \code{int a = static_cast<int>(f) + b;}.
+However special attention must be paid to \emph{implicit casting}, as e.g. in \code{int a = f + b;} which is equivalent to \code{int a = static_cast<int>(f + b);}.
+
+It goes without saying that, in properly designed and written code, casts should be avoided wherever possible.
+
+\subsection{Functions}
+Functions in C++ have:
+\begin{description}
+	\item[Declaration] Which define name, parameters and return type and must go before any usage.
+	\item[Definition] The actual function code: it may go after usages.
+	\item[Signature] The number and types of parameters and their qualifiers (as e.g. \code{const}) is called the \emph{signature} of a function\footnote{The return type and the name are not part of the signature.}.
+\end{description}
+\begin{lstlisting}[float,frame=tb,caption={Example of declaration, usage and definiton of function.}]
+	#include<iostream>
+	double sum(double a, double b); // declaration
+	int main()
+	{
+		double a = 1, b = 2, c;
+		c = sum(a,b); // usage
+		std::cout << c << std::endl;
+	}
+	double sum(double a, double b) // definition
+	{
+		return a + b;
+	}
+\end{lstlisting}
+In C++ it is possible to perform \emph{overloading}, i.e. to declare and define multiple functions with the same name but different signatures and return types. Please note that the differentiation is due to having a different signature, not a different return type: this means that obviously we can't overload a function just by changing its return type but leaving the same signature, as the compiler would not be able to know which one to use.
+
+\subsection{Pre-compiler directives}
+The purpose of pre-compiler directives is to define special behaviors or variables at compile time.
+It is used mainly for template metaprogramming, to avoid inclusion loops with header files and specific directives such as macros.
+An example of pre-compiler directive is \code{#define D 3}, which defines a substitution of each single uppercase \code{D} to be substituted by the const int \code{3} at compile time. This could be useful for defining parametric array lenghts which may be tuned at compile time.
+
+\subsection{Pointers and references}
+Basically a pointer contains the address of a memory block, so pointers can be used to store addresses of variables. E.g.:
+\begin{lstlisting}
+	int a = 6;
+	int* b = &a;
+	std::cout << b << std::endl; // print the address of a
+	std::cout << *b << std::endl; // print "6"
+\end{lstlisting}
+A pointer is nothing more than a long integer representing the memory address: this means that arithmetic operations can be performed on pointers in order to access different memory blocks according to specific patterns.
+
+C++ also has the concept of \emph{reference}. A reference to some variable is like a variable itself (access-wise), however if passed as argument to a function, it produces a pass-by-reference behaviour. E.g.:
+\begin{lstlisting}
+	double d = 3.14;
+	double& rd = d;
+	std::cout << rd << std::endl; // print "3.14"
+\end{lstlisting}
+References can be effectively used to achieve a pass-by-reference behaviour, without having the possible downsides of using pointers.
+
+\subsection{Memory allocation}
+In C++ the standard way to allocate and free memory at runtime is by using the \code{new} and \code{delete} keywords:
+\begin{lstlisting}
+	int* i = new int(5); // int with value = 5
+	int* a = new int[5]; // array of 5 uninitialized ints
+	delete i; // free mem of integer
+	delete [] a; // free mem of array
+\end{lstlisting}
+It is also possible to use the old \code{malloc}, \code{calloc}, \code{realloc} and \code{free} C keywords for backward compatibility, however it must be kept in mind that these will not trigger the call of constructors and destructors on objects, as instead \code{new} and \code{delete} do.
+
+A \code{new} must always match a corresponding \code{delete}, otherwise we end up allocating more memory than we will eventually free: this situation is called \emph{memory leaking}.
+
+\paragraph{Stack vs. Heap}
+It is worth remembering that variables/objects allocated in stack are temporary and local in scope, while those allocated in heap, by using \code{new} can be accessed globally (as long as their pointers are passed around) and must be explicitly deleted by the developer.
 %EOF
+

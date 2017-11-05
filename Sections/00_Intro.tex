@@ -1,4 +1,56 @@
 \section{Intro}
-TODO
+\subsection{The three pillars of science}
+Science is based on three pillars:
+\begin{enumerate}
+	\item Theory
+	\item Experiment
+	\item Simulation
+\end{enumerate}
+The first two are what have been traditionally considered as the two pillars of science: based on observation, a theory potentially explaining the observed phenomena is proposed; then consequences of the theory are elaborated and experiments are planned in order to verify if the same is actually taking place in reality.
 
+However, it is sometimes impractical or even impossible to follow this traditional workflow due to economical, ethical or environmental issues, or even because the size or timescale of the events to be observed cannot reproduced in a laboratory. This is why now science can consider the third -- simulation -- to be one of its pillars as much as the others are. Simulation is science's computational pillar.
+
+\paragraph{The scientific computational workflow}
+The scientific computational workflow is composed of the folowing steps, not always necessarily in the same order:
+\begin{enumerate}[(1)]
+	\item Modelling
+	\item Numerical treatment
+	\item Software design
+	\item Implementation
+	\item Testing
+	\item Visualization
+	\item Post-processing
+	\item Numerical experiments
+	\item \texttt{GOTO 1}
+\end{enumerate}
+This entire workflow usually involves an entire multidisciplinary team spanning the fields of math, CS and the scientific/applicative area in question.
+
+The computational side of science is not a one-man task and requires good teamwork and the ability to understand concepts and languages from multiple fields.
+
+\paragraph{The software crisis}
+Often in science the programming skills are poor and are seen just as something which complements the actual expertise of a scientist, but not a field of expertise in itself.
+
+However, in science in general, but even more in CSE, it is important to have \emph{well-designed} and \emph{maintenable} code.
+Furthermore, both modern hardware and modern models are complex and they require specific knowledge, making software even harder to write.
+
+Programming is both a craft and an art, and as such, it requires practice.
+
+\subsection{The Von Neumann architecture}
+Put in simple terms, the Von Neumann architecture is made of:
+\begin{description}
+	\item[Memory (RAM)] Addressed data storage:
+		\begin{itemize}
+			\item Virtually, it is a sequence of \emph{blocks}.
+			\item It stores both instructions and data.
+			\item Access can be performed in any order (hence the \emph{random}).
+		\end{itemize}
+	\item[Processor] Is basically composed of:
+	\begin{description}
+		\item[Arithmetic-Logic Unit (ALU)] Performs the actual arithmetic and logic operations.
+		\item[Control Unit (CU)] Is in charge to communicate with the bus to get instruction and data.
+		\item[Program Counter (PC)] Is a special \emph{register} containing the memory address of the next instruction to be fetched and executed.
+	\end{description}
+	\item[Bus] Transfers data from and to memory, as instructed by the processor.
+\end{description}
+The sequence (or stream) of machine instructions to be performed in a certain order is what we would call the \emph{program}. As mentioned, these are stored in the memory and accessed according to what stored in the Program Counter.
 %EOF
